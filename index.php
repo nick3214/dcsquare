@@ -3,6 +3,15 @@
   include'config/functions.php';
   include'config/main_function.php';
   $contact = getSingleRow("*","contact_id","contact","1"); 
+  if(!empty($_SESSION['login_admin']))
+{
+    header("location: admin/");
+}
+if(!empty($_SESSION['login_user']))
+{
+    header("Location: user/");
+}
+
 ?>
 <?php include'assets/main_header.php';?>
   <body>

@@ -23,7 +23,9 @@
       $fetch = $kweri->fetch_assoc();
 
       $update = $dbcon->query("UPDATE map_box SET box_name='".$_SESSION['FirstName']."' , box_status = '1' WHERE block_no='".$_GET['block_no']."' AND lot_no = '".$_GET['lot_no']."'") or die(mysqli_error());
-
+      if($total_installment == ''){
+        echo "<script>alert('Total installment must not be empty.');</script>";
+      }else{
       $insertArray = array(
         "map_id"            =>$fetch['ID'],        
         "tcode"             =>mt_rand(),
@@ -54,6 +56,7 @@
         SaveData("reservation_payment",$payment);
       }
       echo "<script>alert('You have successfully reserve the lot.'); window.location = 'index.php';</script></script>";
+    }
   }
 ?>
 <?php include'../assets/header.php';?>

@@ -70,7 +70,6 @@ $color = fetchAll("*","map_color");
  <table id="example1" class="table table-bordered table-hover" style="font-size:13px;">
                 <thead>
                 <tr>
-                  <th>Color ID</th>
                   <th>Color</th>
                   <th>Color Price</th>
                   <th>Option</th>
@@ -79,9 +78,19 @@ $color = fetchAll("*","map_color");
                 <tbody>
 <?php foreach ($color as $key => $value):?>
                 <tr>
-                  <td><?php echo $value->id?></td>
-                  <td><?php echo $value->map_color?></td>
-                  <td><?php echo $value->map_price?></td>
+                  <td>
+                    <?php echo $value->map_color?> - 
+                    <?php 
+                    if($value->map_color == 'Yellow'){
+                      echo 'Premium';
+                    }elseif($value->map_color == 'Green'){
+                      echo 'Everlasting';
+                    }else{  
+                      echo 'Prestige';
+                    }
+                    ?>    
+                  </td>
+                  <td>  &#8369; <?php echo number_format($value->map_price,2)?></td>
                   <td>
                     <div class="btn-group">
                     <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown">

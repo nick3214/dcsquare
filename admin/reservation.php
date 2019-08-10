@@ -9,7 +9,7 @@
 if(isset($_POST['generate_dp'])){
   $reservation_id = filter($_POST['reservation_id']);
   $date_today = $_POST['date_today'];
-  $payment = filter($_POST['reservation_fee']);
+  $payment = filter($_POST['dp']);
 
   $getUser = getSingleRow("*","reservation_id","reservation",$reservation_id);
   $message = 'You have successfully paid the downpayment worth: '.$payment.'';

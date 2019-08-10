@@ -63,6 +63,7 @@ for($i = 1 ; $i <= 11; $i++){
 }
 $block10c = query($dbcon,"Block 10");
 $block10d = query($dbcon,"Block 10");
+$block11 = query($dbcon,"block9");
 ?>
 
 <!DOCTYPE html>
@@ -83,9 +84,10 @@ $block10d = query($dbcon,"Block 10");
 <div class="modal fade" role="document" id="info">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">Step 1: Choose Payment Option</div>
+            <div class="modal-header"></div>
             <div class="modal-body">
             <form method="get" action="../user/reservation.php">
+            <!-- <form id="submit"> -->
                 <div class="row">
                     <div class="col-md-3">
                         <strong>Block No.</strong>
@@ -119,6 +121,9 @@ $block10d = query($dbcon,"Block 10");
                             <strong>Date Reserve:</strong>
                         </div>
                         <div class="col-md-8">
+                            <!--
+                            <input type="date" required class="form-control" name ="date" id="date" >
+                            -->
                             <?php echo date("Y-m-d");?>
                         </div>
                     </div><br>
@@ -133,6 +138,9 @@ $block10d = query($dbcon,"Block 10");
                             </div>
                             <div class="col-md-8">
                                 <strong id="reserveby"></strong>
+                                <!--
+                                <input type="date" required class="form-control" name ="date" id="date" >
+                                -->
                             </div>
                         </div><br>
                 </div>
@@ -154,6 +162,10 @@ $block10d = query($dbcon,"Block 10");
                 <?php if(!empty($_SESSION['login_user'])): ?>
                     <input type="submit" value="Next" class="btn btn-primary" id="save">
                 <?php endif; ?>
+                
+                <!-- <input type="submit" value="save" class="btn btn-danger" > -->
+               
+                
                 <input type="submit" value="Close" class="btn btn-danger" data-dismiss="modal">
                
             </div>

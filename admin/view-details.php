@@ -14,15 +14,28 @@
     $DatePaid = filter($_POST['DatePaid']);
     $Total = filter($_POST['Total']);
     $Interest = filter($_POST['Interest']);
-    $Balance = filter($_POST['Balance']);
     $official_receipt = filter($_POST['official_receipt']);
 
+    $getData = getSingleRow("*","tcode","reservation",$_GET['tcode']);
+
+    $h = $dbcon->query("SELECT SUM(Balance) as total FROM reservation_payment WHERE reservation_id = '".$getData['reservation_id']."'") or die(mysqli_error());
+    $getTotal = $h->fetch_assoc();
+
+    if($getTotal['total'] == '0'){
+      
+      $Balance = ($getData['total_installment'] - $getData['dp']) - $Total;
+    }else{
+      $Balance = $getTotal['total'] - $Total;
+      //$Balance = '1000'; 
+    }
+    
     $arr_where = array("rp_id"=>$rp_id);//update where
     $arr_set = array(
       "DatePaid"     =>$DatePaid,
       "Total"        =>$Total,
       "Interest"     =>$Interest,
-      "Balance"      =>$Balance
+      "Balance"      =>$Balance,
+      "r_status"     =>"1"
     );//set update
     $tbl_name = "reservation_payment";
     $update = UpdateQuery($dbcon,$tbl_name,$arr_set,$arr_where);
@@ -169,7 +182,7 @@
       </td>
       <td><?php echo $fetch['Principal']?></td>
       <td>
-        <input type="text" name="Balance" class="form-control" value="<?php echo $fetch['Balance']?>" required>
+        <input type="text" name="Balance" class="form-control" value="<?php echo $fetch['Balance']?>" required readonly>
       </td>
       <td>
         <input type="text" name="official_receipt" class="form-control" value="<?php echo $fetch['official_receipt']?>" required>
@@ -179,9 +192,10 @@
       </td>
       <td></td>
       <td>
-        
+        <?php if($fetch['r_status'] == '0'):?>
           <input type="hidden" name="rp_id" value="<?php echo $fetch['rp_id']?>">
           <button class="btn btn-info btn-sml" name="pay_btn"><i class="fa fa-save"></i></button>
+        <?php endif;?>
         
       </td>
     </tr>
